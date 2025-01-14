@@ -34,8 +34,7 @@ axis_number = int(axis_number)
 
 sens = 0
 t = 0 #Hold timer 60flame
-hflag = 0 #Holding flag 0...~140(nohold) 1...141~219(hold) 2...220~(QB)
-ssflag = 0 # 0...fail 1...possible
+flag = 0 #Hold flag
 
 try:
     while True:
@@ -44,8 +43,22 @@ try:
                 if event.axis == axis_number:
                     sens = (event.value +1.0) / 2.0 * 255
                     sens = int(sens)
-        print(f"R2 sensitivity: {sens}") 
-                    
+        #print(f"R2 sensitivity: {sens}") 
+        if sens < 141:
+            t = 0 #reset t
+            flag = 0
+        elif sens > 140 and sens < 220:
+            t = t + 1
+            print(t)
+            flag = 1
+        elif sens > 219 and flag == 1:
+            if t > 11 and t < 23:
+                print("SS Successed")
+                flag = 0
+            else:
+                print("SS failed")
+                flag = 0
+            t = 0 #reset t
         clock.tick(60)
 
 #ctrl+c option
