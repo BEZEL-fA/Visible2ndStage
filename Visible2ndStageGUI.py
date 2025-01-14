@@ -9,7 +9,7 @@ pygame.joystick.init()
 # ウィンドウサイズ設定
 WIDTH, HEIGHT = 400, 300  # 高さを増加
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("R2 Trigger Sensitivity")
+pygame.display.set_caption("Visible2ndStage")
 
 clock = pygame.time.Clock()
 
@@ -106,11 +106,11 @@ try:
         pygame.draw.line(screen, (255, 255, 255), (boundary_220_x, BAR_Y), (boundary_220_x, BAR_Y + BAR_HEIGHT), 2)  # 線 (白)
 
         # 円形アイコンの描画
+        pygame.draw.circle(screen, (50, 50, 50), CIRCLE_CENTER, CIRCLE_RADIUS)  # 背景円
         if start_time is not None:
             angle = min((elapsed_time / 0.366) * 360, 360)  # 経過時間に応じた角度
             end_angle = angle * (3.14159 / 180)  # ラジアンに変換
-            color = (255, 0, 0) if 0.2 <= elapsed_time <= 0.366 else (0, 255, 255)  # 外周の色
-            pygame.draw.circle(screen, (50, 50, 50), CIRCLE_CENTER, CIRCLE_RADIUS)  # 背景円
+            color = (255, 0, 0) if 0.2 <= elapsed_time <= 0.366 else (0, 255, 0)  # 外周の色
             pygame.draw.arc(screen, color, 
                             (CIRCLE_CENTER[0] - CIRCLE_RADIUS, CIRCLE_CENTER[1] - CIRCLE_RADIUS, 
                              CIRCLE_RADIUS * 2, CIRCLE_RADIUS * 2), 
@@ -128,4 +128,4 @@ try:
 # ctrl+c で終了
 except KeyboardInterrupt:
     print("Exiting...")
-    pygame.quit()
+    pygame.quit()
