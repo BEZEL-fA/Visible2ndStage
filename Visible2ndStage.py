@@ -1,5 +1,9 @@
+#Now it can show R2 trigger sensitivity
+
 import pygame
 from pygame.locals import *
+
+clock = pygame.time.Clock()
 
 pygame.init()
 pygame.joystick.init()
@@ -34,6 +38,7 @@ try:
                 if event.axis == axis_number:
                     sensitivity = (event.value +1.0) / 2.0 * 255
                     print(f"R2 sensitivity: {int(sensitivity)}")
+        clock.tick(60)
 
 except KeyboardInterrupt:
     print("Exiting...")
