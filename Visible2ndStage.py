@@ -31,8 +31,8 @@ print(f"Number of axis: {axis_count}")
 print("axis number :")
 axis_number = input()
 axis_number = int(axis_number)
-prev_sens = None
 
+sens = 0
 t = 0 #Hold timer 60flame
 hflag = 0 #Holding flag 0...~140(nohold) 1...141~219(hold) 2...220~(QB)
 ssflag = 0 # 0...fail 1...possible
@@ -44,9 +44,7 @@ try:
                 if event.axis == axis_number:
                     sens = (event.value +1.0) / 2.0 * 255
                     sens = int(sens)
-                    prev_sens = sens
-        if prev_sens is not None:
-            print(f"R2 sensitivity: {prev_sens}")
+        print(f"R2 sensitivity: {sens}") 
                     
         clock.tick(60)
 
