@@ -1,4 +1,4 @@
-#Now it can show R2 trigger sensitivity
+#Now it can show R2 trigger sensitivity per 60fps
 
 import pygame
 from pygame.locals import *
@@ -27,19 +27,30 @@ else:
 axis_count = joystick.get_numaxes()
 print(f"Number of axis: {axis_count}")
 
+#Select axis signal
 print("axis number :")
 axis_number = input()
 axis_number = int(axis_number)
+prev_sens = None
+
+t = 0 #Hold timer 60flame
+hflag = 0 #Holding flag 0...~140(nohold) 1...141~219(hold) 2...220~(QB)
+ssflag = 0 # 0...fail 1...possible
 
 try:
     while True:
         for event in pygame.event.get():
             if event.type == JOYAXISMOTION:
                 if event.axis == axis_number:
-                    sensitivity = (event.value +1.0) / 2.0 * 255
-                    print(f"R2 sensitivity: {int(sensitivity)}")
+                    sens = (event.value +1.0) / 2.0 * 255
+                    sens = int(sens)
+                    prev_sens = sens
+        if prev_sens is not None:
+            print(f"R2 sensitivity: {prev_sens}")
+                    
         clock.tick(60)
 
+#ctrl+c option
 except KeyboardInterrupt:
     print("Exiting...")
     pygame.quit()
