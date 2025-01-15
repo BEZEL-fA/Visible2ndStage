@@ -3,6 +3,7 @@ import time
 from pygame.locals import *
 import tkinter as tk
 from tkinter import ttk
+import sys
 
 # 初期化
 pygame.init()
@@ -17,7 +18,7 @@ joystick_count = pygame.joystick.get_count()
 if joystick_count == 0:
     print("No controller attached")
     pygame.quit()
-    exit()
+    sys.exit()
 
 joystick_options = [f"{i}: {pygame.joystick.Joystick(i).get_name()}" for i in range(joystick_count)]
 selected_joystick = tk.StringVar(value=joystick_options[0])
@@ -86,7 +87,7 @@ try:
         for event in pygame.event.get():
             if event.type == QUIT:  # Xボタンがクリックされたときに終了
                 pygame.quit()
-                exit()
+                sys.exit()
 
             if event.type == JOYAXISMOTION and event.axis == axis_number:
                 sens = (event.value + 1.0) / 2.0 * 255
@@ -94,10 +95,10 @@ try:
 
         current_time = time.time()
         elapsed_time = 0
-        if sens < 141:
+        if sens < 155:
             start_time = None
             flag = 0
-        elif 141 <= sens < 220:
+        elif 155 <= sens < 220:
             if start_time is None:
                 start_time = current_time
             flag = 1
@@ -115,9 +116,9 @@ try:
             flag = 0
 
         screen.fill((0, 0, 0))
-        if sens < 141:
+        if sens < 155:
             bar_color = (0, 255, 0)
-        elif 141 <= sens < 220:
+        elif 155 <= sens < 220:
             bar_color = (255, 255, 0)
         else:
             bar_color = (255, 0, 0)
@@ -125,7 +126,7 @@ try:
         pygame.draw.rect(screen, (255, 255, 255), (BAR_X, BAR_Y, BAR_WIDTH, BAR_HEIGHT), 2)
         fill_width = int((sens / 255) * BAR_WIDTH)
         pygame.draw.rect(screen, bar_color, (BAR_X, BAR_Y, fill_width, BAR_HEIGHT))
-        boundary_140_x = BAR_X + int((140 / 255) * BAR_WIDTH)
+        boundary_140_x = BAR_X + int((155 / 255) * BAR_WIDTH)
         boundary_220_x = BAR_X + int((220 / 255) * BAR_WIDTH)
         pygame.draw.line(screen, (255, 255, 255), (boundary_140_x, BAR_Y), (boundary_140_x, BAR_Y + BAR_HEIGHT), 2)
         pygame.draw.line(screen, (255, 255, 255), (boundary_220_x, BAR_Y), (boundary_220_x, BAR_Y + BAR_HEIGHT), 2)
