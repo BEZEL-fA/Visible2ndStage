@@ -1,3 +1,5 @@
+# game.py
+
 import sys
 import pygame
 import time
@@ -86,6 +88,21 @@ def main():
                     sys.exit()
                 if event.type == pygame.JOYAXISMOTION and event.axis == axis_number:
                     sens = int((event.value + 1.0) / 2.0 * 255)
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_s:  # "s" キーを押すと再設定
+                    pygame.quit()
+                    # 設定画面を表示するために select_joystick_and_axis を呼び出す
+                    joystick_index, axis_number, threshold = select_joystick_and_axis()
+                    # 再設定後、Pygame ウィンドウを再度初期化
+                    pygame.init()
+                    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+                    pygame.display.set_icon(pygame_icon)
+                    pygame.display.set_caption("Visible2ndStage")
+                    joystick = pygame.joystick.Joystick(joystick_index)
+                    joystick.init()
+
+                    # 再設定後の閾値の更新
+                    THRESHOLD_1 = 141 * (255 - threshold) / 255 + threshold
+                    THRESHOLD_2 = 220 * (255 - threshold) / 255 + threshold
 
             current_time = time.time()
             elapsed_time = 0
@@ -118,6 +135,11 @@ def main():
             font = pygame.font.SysFont(None, 36)
             text = font.render(f"Sensitivity: {sens}", True, (255, 255, 255))
             screen.blit(text, ((WIDTH - BAR_WIDTH) // 2, HEIGHT // 2 - 40))
+
+            # "s: setting" のテキストを右下に配置
+            setting_font = pygame.font.SysFont(None, 24)
+            setting_text = setting_font.render("s: setting", True, (255, 255, 255))
+            screen.blit(setting_text, (WIDTH - setting_text.get_width() - 10, HEIGHT - setting_text.get_height() - 10))
 
             pygame.display.update()
             pygame.time.wait(5)
