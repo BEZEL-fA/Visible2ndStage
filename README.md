@@ -1,16 +1,17 @@
 This software was developed to assist in successfully performing the Second Stage Quick Boost in Armored Core: For Answer.
 
-video
-
-https://www.youtube.com/watch?v=D-frQ5dTzxY&ab_channel=BEZEL%27schannel
-
 **How to Use**
+![スクリーンショット 2025-01-15 233857](https://github.com/user-attachments/assets/c2fec8dc-0ff8-41e4-bde4-d1d531cfc7f8)
 
-Select your joystick.
-
+First, Select your joystick.
 Select AXIS. It is usually 5.
+And, Input threshold.The default value in the initial setup of RPCS3 is 30. Please check the value in your RPCS3. If you're using global settings, it can be found in the following directory: 
 
-Press the Start and make sure the bar responds.
+EMULATOR/config/input_configs/global/Default.yml 
+
+To easily capture a screenshot, **it is strongly recommended to set the Threshold value to 0 in RPCS3**.
+
+Finally, Press the Start and make sure the bar responds.
 
 **Practice Method for SS**
 
