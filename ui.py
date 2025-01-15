@@ -66,7 +66,7 @@ def select_joystick_and_axis():
     # Tkinter ウィンドウの設定
     root = tk.Tk()
     root.title("Select Joystick and Axis")
-    root.geometry("500x250")
+    root.geometry("400x250")
     iconfile = './images/icon1.ico'
     root.iconbitmap(default=iconfile)
 
@@ -97,7 +97,7 @@ def select_joystick_and_axis():
         to=255,
         textvariable=threshold_value,
         width=10,
-        justify="center"
+        justify="left"
     )
     threshold_spinbox.grid(column=1, row=2, sticky=(tk.W, tk.E))
 
