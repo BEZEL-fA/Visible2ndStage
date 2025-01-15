@@ -133,7 +133,7 @@ try:
         boundary_220_x = BAR_X + int((220 / 255) * BAR_WIDTH)
         pygame.draw.line(screen, (255, 255, 255), (boundary_140_x, BAR_Y), (boundary_140_x, BAR_Y + BAR_HEIGHT), 2)
         pygame.draw.line(screen, (255, 255, 255), (boundary_220_x, BAR_Y), (boundary_220_x, BAR_Y + BAR_HEIGHT), 2)
-        pygame.draw.circle(screen, (50, 50, 50), CIRCLE_CENTER, CIRCLE_RADIUS)
+        pygame.draw.circle(screen, (255, 255, 255), CIRCLE_CENTER, CIRCLE_RADIUS, 3)  # 円の縁に白い細い線を描画
 
         if start_time is not None:
             angle = min((elapsed_time / 0.366) * 360, 360)
@@ -145,6 +145,14 @@ try:
                             0, end_angle, ARC_WIDTH)
             
             # 円の中心から円の縁に向かって線を描画
+            line_x = CIRCLE_CENTER[0] + CIRCLE_RADIUS * math.cos(end_angle)
+            line_y = CIRCLE_CENTER[1] - CIRCLE_RADIUS * math.sin(end_angle)
+            pygame.draw.line(screen, (255, 255, 255), CIRCLE_CENTER, (line_x, line_y), 3)
+        else:
+            # Radを0にする
+            angle = 0
+            end_angle = angle * (3.14159 / 180)  # Angleをラジアンに
+            # 円の線を描画
             line_x = CIRCLE_CENTER[0] + CIRCLE_RADIUS * math.cos(end_angle)
             line_y = CIRCLE_CENTER[1] - CIRCLE_RADIUS * math.sin(end_angle)
             pygame.draw.line(screen, (255, 255, 255), CIRCLE_CENTER, (line_x, line_y), 3)
