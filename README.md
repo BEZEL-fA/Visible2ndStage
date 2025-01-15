@@ -1,5 +1,5 @@
 This software was developed to assist in successfully performing the Second Stage Quick Boost in Armored Core: For Answer.
-![スクリーンショット 2025-01-15 233857](https://github.com/user-attachments/assets/c2fec8dc-0ff8-41e4-bde4-d1d531cfc7f8
+![スクリーンショット 2025-01-15 233857](https://github.com/user-attachments/assets/c2fec8dc-0ff8-41e4-bde4-d1d531cfc7f8)
 ![スクリーンショット 2025-01-15 234428](https://github.com/user-attachments/assets/077bdfbd-9840-4704-adbe-f48ffe7eedf1)
 
 
