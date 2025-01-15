@@ -68,7 +68,20 @@ ttk.Button(frame, text="Start", command=on_select).grid(column=0, row=2, columns
 
 root.mainloop()
 
-# Tkinter 選択後、Pygame メイン処理
+# 円の扇形を塗りつぶす処理
+def fill_segment_on_arc(start_angle, end_angle, color):
+    # 扇形の頂点を計算
+    points = [CIRCLE_CENTER]
+    step = 1  # 精度を上げたい場合は小さくしてみてください（より多くの三角形を描画する）
+    for angle in range(int(start_angle), int(end_angle), step):
+        angle_rad = math.radians(angle)
+        x = CIRCLE_CENTER[0] + CIRCLE_RADIUS * math.cos(angle_rad)
+        y = CIRCLE_CENTER[1] - CIRCLE_RADIUS * math.sin(angle_rad)
+        points.append((x, y))
+    points.append(CIRCLE_CENTER)  # 終点を中心に戻す
+    pygame.draw.polygon(screen, color, points)
+
+# Pygame メイン処理
 WIDTH, HEIGHT = 400, 300
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Visible2ndStage")
@@ -133,7 +146,12 @@ try:
         boundary_220_x = BAR_X + int((220 / 255) * BAR_WIDTH)
         pygame.draw.line(screen, (255, 255, 255), (boundary_140_x, BAR_Y), (boundary_140_x, BAR_Y + BAR_HEIGHT), 2)
         pygame.draw.line(screen, (255, 255, 255), (boundary_220_x, BAR_Y), (boundary_220_x, BAR_Y + BAR_HEIGHT), 2)
-        pygame.draw.circle(screen, (255, 255, 255), CIRCLE_CENTER, CIRCLE_RADIUS, 3)  # 円の縁に白い細い線を描画
+        pygame.draw.circle(screen, (255, 255, 255), CIRCLE_CENTER, CIRCLE_RADIUS, 1)  # 円の縁に白い細い線を描画
+
+        # t=0.2~0.366の間をグレーで塗りつぶす
+        angle_0_2 = (0.2 / 0.366) * 360  # 0.2秒に対応する角度
+        angle_0_366 = 360  # 0.366秒に対応する角度（最大360度）
+        fill_segment_on_arc(angle_0_2, angle_0_366, (169, 169, 169))  # グレー色で塗りつぶし
 
         if start_time is not None:
             angle = min((elapsed_time / 0.366) * 360, 360)
