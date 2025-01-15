@@ -161,19 +161,10 @@ try:
                             (CIRCLE_CENTER[0] - CIRCLE_RADIUS, CIRCLE_CENTER[1] - CIRCLE_RADIUS, 
                              CIRCLE_RADIUS * 2, CIRCLE_RADIUS * 2), 
                             0, end_angle, ARC_WIDTH)
-            
-            # 円の中心から円の縁に向かって線を描画
-            line_x = CIRCLE_CENTER[0] + CIRCLE_RADIUS * math.cos(end_angle)
-            line_y = CIRCLE_CENTER[1] - CIRCLE_RADIUS * math.sin(end_angle)
-            pygame.draw.line(screen, (255, 255, 255), CIRCLE_CENTER, (line_x, line_y), 3)
         else:
             # Radを0にする
             angle = 0
             end_angle = angle * (3.14159 / 180)  # Angleをラジアンに
-            # 円の線を描画
-            line_x = CIRCLE_CENTER[0] + CIRCLE_RADIUS * math.cos(end_angle)
-            line_y = CIRCLE_CENTER[1] - CIRCLE_RADIUS * math.sin(end_angle)
-            pygame.draw.line(screen, (255, 255, 255), CIRCLE_CENTER, (line_x, line_y), 3)
 
         font = pygame.font.SysFont(None, 36)
         text = font.render(f"Sensitivity: {sens}", True, (255, 255, 255))
