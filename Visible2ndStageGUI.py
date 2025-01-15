@@ -84,6 +84,10 @@ ARC_WIDTH = 5
 try:
     while True:
         for event in pygame.event.get():
+            if event.type == QUIT:  # Xボタンがクリックされたときに終了
+                pygame.quit()
+                exit()
+
             if event.type == JOYAXISMOTION and event.axis == axis_number:
                 sens = (event.value + 1.0) / 2.0 * 255
                 sens = int(sens)
