@@ -8,6 +8,12 @@ from tkinter import ttk
 import sys
 import math
 
+#境目の値、この値で境目の右は反応する
+#後で変更できるようにしてもいいかもしれない
+thre1 = 141
+thre2 = 220
+
+
 # 初期化
 pygame.init()
 pygame.joystick.init()
@@ -119,15 +125,15 @@ try:
 
         current_time = time.time()
         elapsed_time = 0
-        if sens < 155:
+        if sens < thre1:
             start_time = None
             flag = 0
-        elif 155 <= sens < 220:
+        elif thre1 <= sens < thre2:
             if start_time is None:
                 start_time = current_time
             flag = 1
             elapsed_time = current_time - start_time
-        elif sens >= 220 and flag == 1:
+        elif sens >= thre2 and flag == 1:
             if start_time is not None:
                 elapsed_time = current_time - start_time
                 if 0.2 <= elapsed_time <= 0.366:
@@ -140,9 +146,9 @@ try:
             flag = 0
 
         screen.fill((0, 0, 0))
-        if sens < 155:
+        if sens < thre1:
             bar_color = (0, 255, 0)
-        elif 155 <= sens < 220:
+        elif thre1 <= sens < thre2:
             bar_color = (255, 255, 0)
         else:
             bar_color = (255, 0, 0)
@@ -150,8 +156,8 @@ try:
         pygame.draw.rect(screen, (255, 255, 255), (BAR_X, BAR_Y, BAR_WIDTH, BAR_HEIGHT), 2)
         fill_width = int((sens / 255) * BAR_WIDTH)
         pygame.draw.rect(screen, bar_color, (BAR_X, BAR_Y, fill_width, BAR_HEIGHT))
-        boundary_140_x = BAR_X + int((155 / 255) * BAR_WIDTH)
-        boundary_220_x = BAR_X + int((220 / 255) * BAR_WIDTH)
+        boundary_140_x = BAR_X + int((thre1 / 255) * BAR_WIDTH)
+        boundary_220_x = BAR_X + int((thre2 / 255) * BAR_WIDTH)
         pygame.draw.line(screen, (255, 255, 255), (boundary_140_x, BAR_Y), (boundary_140_x, BAR_Y + BAR_HEIGHT), 2)
         pygame.draw.line(screen, (255, 255, 255), (boundary_220_x, BAR_Y), (boundary_220_x, BAR_Y + BAR_HEIGHT), 2)
         pygame.draw.circle(screen, (50, 50, 50), CIRCLE_CENTER, CIRCLE_RADIUS)
