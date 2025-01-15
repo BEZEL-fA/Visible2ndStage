@@ -9,8 +9,6 @@ WIDTH, HEIGHT = 400, 300
 BAR_WIDTH, BAR_HEIGHT = 300, 20
 CIRCLE_RADIUS = 30
 CIRCLE_CENTER = (WIDTH // 2, HEIGHT - 60)
-THRESHOLD_1 = 141
-THRESHOLD_2 = 220
 TIME1 = 0.2
 TIME2 = 0.366
 ARC_WIDTH = 5
@@ -26,7 +24,7 @@ def fill_segment_on_arc(screen, center, radius, start_angle, end_angle, color):
         points.append((x, y))
     pygame.draw.polygon(screen, color, points)
 
-def draw_bar(screen, sens):
+def draw_bar(screen, sens, THRESHOLD_1, THRESHOLD_2):
     """感度バーを描画"""
     bar_x = (WIDTH - BAR_WIDTH) // 2
     bar_y = HEIGHT // 2
@@ -61,7 +59,11 @@ def draw_circle_and_arc(screen, start_time, elapsed_time):
                         0, math.radians(angle), ARC_WIDTH)
 
 def main():
-    joystick_index, axis_number = select_joystick_and_axis()
+    joystick_index, axis_number, threshold = select_joystick_and_axis()
+
+    # threshold を基にした動的な THRESHOLD_1 と THRESHOLD_2 の設定
+    THRESHOLD_1 = 141 * (255 - threshold) / 255 + threshold  # 例として、THRESHOLD_1 を調整
+    THRESHOLD_2 = 220 * (255 - threshold) / 255 + threshold  # 同様に、THRESHOLD_2 を調整
 
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -109,7 +111,7 @@ def main():
 
             # 描画処理
             screen.fill((0, 0, 0))
-            draw_bar(screen, sens)
+            draw_bar(screen, sens, THRESHOLD_1, THRESHOLD_2)
             draw_circle_and_arc(screen, start_time, elapsed_time)
 
             # 感度テキストの描画
