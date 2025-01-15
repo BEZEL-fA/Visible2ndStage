@@ -14,12 +14,17 @@ pygame.joystick.init()
 
 # Tkinter ウィンドウの設定
 root = tk.Tk()
+iconfile = './images/icon1.ico'
+root.iconbitmap(default=iconfile)
 root.title("Select Joystick and Axis")
 
 # ジョイスティックリスト取得
 joystick_count = pygame.joystick.get_count()
 if joystick_count == 0:
-    print("No controller attached")
+    # ジョイスティックがない場合はエラーメッセージを表示
+    error_label = ttk.Label(root, text="No joystick found", foreground="red", font=("Helvetica", 14))
+    error_label.pack(pady=20)
+    root.mainloop()  # Tkinter ウィンドウを表示して終了しないようにする
     pygame.quit()
     sys.exit()
 
@@ -68,6 +73,7 @@ ttk.Button(frame, text="Start", command=on_select).grid(column=0, row=2, columns
 
 root.mainloop()
 
+# 以下のコードはそのまま残す
 # 円の扇形を塗りつぶす処理
 def fill_segment_on_arc(start_angle, end_angle, color):
     # 扇形の頂点を計算
@@ -84,6 +90,8 @@ def fill_segment_on_arc(start_angle, end_angle, color):
 # Pygame メイン処理
 WIDTH, HEIGHT = 400, 300
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame_icon = pygame.image.load('./images/icon1.png')
+pygame.display.set_icon(pygame_icon)
 pygame.display.set_caption("Visible2ndStage")
 
 # メーターの初期設定
