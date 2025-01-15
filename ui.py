@@ -118,6 +118,12 @@ def select_joystick_and_axis():
     # 初期値の設定
     update_joystick_list()
 
+    def on_close():
+        pygame.quit()
+        sys.exit("Program closed by user.")
+
+    root.protocol("WM_DELETE_WINDOW", on_close)
+
     root.mainloop()
 
     if not selected_joystick.get() or not selected_axis.get():
