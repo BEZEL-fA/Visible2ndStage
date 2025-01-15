@@ -154,7 +154,7 @@ try:
         boundary_220_x = BAR_X + int((220 / 255) * BAR_WIDTH)
         pygame.draw.line(screen, (255, 255, 255), (boundary_140_x, BAR_Y), (boundary_140_x, BAR_Y + BAR_HEIGHT), 2)
         pygame.draw.line(screen, (255, 255, 255), (boundary_220_x, BAR_Y), (boundary_220_x, BAR_Y + BAR_HEIGHT), 2)
-        pygame.draw.circle(screen, (255, 255, 255), CIRCLE_CENTER, CIRCLE_RADIUS, 1)  # 円の縁に白い細い線を描画
+        pygame.draw.circle(screen, (50, 50, 50), CIRCLE_CENTER, CIRCLE_RADIUS)
 
         # t=0.2~0.366の間をグレーで塗りつぶす
         angle_0_2 = (0.2 / 0.366) * 360  # 0.2秒に対応する角度
