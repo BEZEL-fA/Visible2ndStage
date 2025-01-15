@@ -101,8 +101,8 @@ def select_joystick_and_axis():
     )
     threshold_spinbox.grid(column=1, row=2, sticky=(tk.W, tk.E))
 
-    # "Update" ボタン
-    ttk.Button(frame, text="Update", command=update_joystick_list).grid(column=0, row=3, columnspan=2, pady=5)
+    # "Reload" ボタン
+    ttk.Button(frame, text="Reload", command=update_joystick_list).grid(column=0, row=3, columnspan=2, pady=5)
 
     # "Start" ボタン
     def on_select():
