@@ -20,6 +20,11 @@ This is the section for selecting the Threshold. This value adjusts the trigger 
 EMULATOR/config/input_configs/global/Default.yml 
 ```
 To easily succeed Second Stage, **it is strongly recommended to set the Threshold value to 0 in RPCS3**.
+## UI explanation
+### Sensitivity Meter
+Rectangle bar displays the trigger pressure. When the meter is yellow, the Second Stage charge count becomes active.
+### Charge timer
+The circle at the bottom center indicates the duration of the charge count. When it turns red, the Second Stage can be successfully executed.
 # Practice Method for SS
 Hold the trigger when the bar turns yellow. The edge of the circle at the bottom will start to move. When the edge of the circle turns red, press the trigger all the way down.
 # Releases
