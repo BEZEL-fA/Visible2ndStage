@@ -19,7 +19,8 @@ Finally, Press the Start and make sure the bar responds.
 
 Hold the trigger when the bar turns yellow. The edge of the circle at the bottom will start to move. When the edge of the circle turns red, press the trigger all the way down.
 # Releases
-[Visible2ndStage v0.9.6 for Win64](https://github.com/BEZEL-fA/Visible2ndStage/releases/tag/0.9.6)
+[Latest](https://github.com/BEZEL-fA/Visible2ndStage/releases/tag/0.9.7)
+[Stable](https://github.com/BEZEL-fA/Visible2ndStage/releases/tag/0.9.6)
 # Known Issues
 
 It does not support QB reload.
