@@ -44,7 +44,6 @@ def draw_bar(screen, sens, THRESHOLD_1, THRESHOLD_2):
     fill_width = int((sens / 255) * BAR_WIDTH)
     bar_color = (0, 255, 0) if sens < THRESHOLD_1 else (255, 255, 0) if sens < THRESHOLD_2 else (255, 0, 0)
 
-    pygame.draw.rect(screen, (255, 255, 255), (bar_x, bar_y, BAR_WIDTH, BAR_HEIGHT), 2)
     pygame.draw.rect(screen, bar_color, (bar_x, bar_y, fill_width, BAR_HEIGHT))
 
     pygame.draw.line(screen, (255, 255, 255), (boundary_140_x, bar_y), (boundary_140_x, bar_y + BAR_HEIGHT), 2)
