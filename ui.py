@@ -67,7 +67,7 @@ def select_joystick_and_axis():
 
     # Tkinter ウィンドウの設定
     root = tk.Tk()
-    root.title("Select Joystick and Axis")
+    root.title("Settings")
     root.geometry("400x300")
     iconfile = './images/icon1.ico'
     root.iconbitmap(default=iconfile)
