@@ -1,10 +1,10 @@
-# game.py
-
 import sys
 import pygame
 import time
 import math
 from ui import select_joystick_and_axis
+import ctypes
+import win32gui, win32con, win32api
 
 # 定数の定義
 WIDTH, HEIGHT = 400, 300
@@ -71,23 +71,22 @@ def main():
 
     if mode == "Overlay":
         screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.NOFRAME | pygame.SRCALPHA)
-
-        # Overlayモード用のクロマキー設定
-        import ctypes
-        import win32gui, win32con, win32api
-
         hwnd = pygame.display.get_wm_info()["window"]
 
         # ウィンドウをレイヤードに設定
         win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE) | win32con.WS_EX_LAYERED)
 
-        # クロマキー色（ここでは (255, 0, 128)）を設定
-        chroma_key = (255, 0, 128)
+        # クロマキー色（ここでは (0, 0, 0)）を設定
+        chroma_key = (0, 0, 0)
         win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*chroma_key), 0, win32con.LWA_COLORKEY)
 
-        # クロマキー色で画面を塗りつぶす
+        # ウィンドウを最前面に設定
+        win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0, 0, 0, 
+                              win32con.SWP_NOMOVE | win32con.SWP_NOSIZE)
+
+        # 最前面設定後に画面を塗りつぶす
         screen.fill(chroma_key)
-        ctypes.windll.user32.SetWindowPos(hwnd, -1, 0, 0, 0, 0, 3)  # 常に最前面に表示
+
     else:
         screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame_icon = pygame.image.load('./images/icon1.png')
@@ -117,10 +116,11 @@ def main():
                         screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.NOFRAME | pygame.SRCALPHA)
                         hwnd = pygame.display.get_wm_info()["window"]
                         win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE) | win32con.WS_EX_LAYERED)
-                        chroma_key = (255, 0, 128)
+                        chroma_key = (0, 0, 0)
                         win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*chroma_key), 0, win32con.LWA_COLORKEY)
+                        win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0, 0, 0, 
+                                              win32con.SWP_NOMOVE | win32con.SWP_NOSIZE)
                         screen.fill(chroma_key)
-                        ctypes.windll.user32.SetWindowPos(hwnd, -1, 0, 0, 0, 0, 3)
                     else:
                         screen = pygame.display.set_mode((WIDTH, HEIGHT))
                         pygame_icon = pygame.image.load('./images/icon1.png')
