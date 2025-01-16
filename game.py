@@ -14,6 +14,10 @@ CIRCLE_CENTER = (WIDTH // 2, HEIGHT - 60)
 TIME1 = 0.2
 TIME2 = 0.366
 ARC_WIDTH = 5
+screen_width, screen_height = win32api.GetSystemMetrics(0), win32api.GetSystemMetrics(1)
+window_width, window_height = WIDTH, HEIGHT
+x = (screen_width - window_width) // 2
+y = (screen_height - window_height) // 2
 
 def fill_segment_on_arc(screen, center, radius, start_angle, end_angle, color):
     """円の扇形を塗りつぶす"""
@@ -81,8 +85,7 @@ def main():
         win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*chroma_key), 0, win32con.LWA_COLORKEY)
 
         # ウィンドウを最前面に設定
-        win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0, 0, 0, 
-                              win32con.SWP_NOMOVE | win32con.SWP_NOSIZE)
+        win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, x, y - int(y * 0.93), window_width, window_height, win32con.SWP_NOSIZE)
 
         # 最前面設定後に画面を塗りつぶす
         screen.fill(chroma_key)
@@ -118,8 +121,7 @@ def main():
                         win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE) | win32con.WS_EX_LAYERED)
                         chroma_key = (0, 0, 0)
                         win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*chroma_key), 0, win32con.LWA_COLORKEY)
-                        win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0, 0, 0, 
-                                              win32con.SWP_NOMOVE | win32con.SWP_NOSIZE)
+                        win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, x, y - int(y * 0.93), window_width, window_height, win32con.SWP_NOSIZE)
                         screen.fill(chroma_key)
                     else:
                         screen = pygame.display.set_mode((WIDTH, HEIGHT))
