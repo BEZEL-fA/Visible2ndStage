@@ -161,9 +161,11 @@ def main():
             draw_bar(screen, sens, THRESHOLD_1, THRESHOLD_2)
             draw_circle_and_arc(screen, start_time, elapsed_time)
 
-            font = pygame.font.SysFont(None, 36)
-            text = font.render(f"Sensitivity: {sens}", True, (255, 255, 255))
-            screen.blit(text, ((WIDTH - BAR_WIDTH) // 2, HEIGHT // 2 - 40))
+            # Overlay モードでない場合のみ sensitivity のテキストを描画
+            if mode != "Overlay":
+                font = pygame.font.SysFont(None, 36)
+                text = font.render(f"Sensitivity: {sens}", True, (255, 255, 255))
+                screen.blit(text, ((WIDTH - BAR_WIDTH) // 2, HEIGHT // 2 - 40))
 
             setting_font = pygame.font.SysFont(None, 24)
             setting_text = setting_font.render("s: setting", True, (255, 255, 255))
