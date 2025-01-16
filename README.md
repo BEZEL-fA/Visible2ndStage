@@ -5,16 +5,21 @@
 ![スクリーンショット 2025-01-16 164610](https://github.com/user-attachments/assets/a5df1b12-5ec0-48c8-a86f-c1c4d84311e1)
 
 # How to Use
+First, the Settings screen will appear. After configuring the necessary items on the Settings screen, press Start, and a meter indicating Sensitivity will be displayed.
 
-First, Select your joystick.
-Select AXIS. It is usually 5.
-And, Input threshold.The default value in the initial setup of RPCS3 is 30. Please check the value in your RPCS3. If you're using global settings, it can be found in the following directory: 
+## Settings
+### Select Joystick
+This is the section for selecting a joystick. Please use the same device that you normally use for gaming. If it does not appear in the list, try reconnecting the device and then updating.
+### Select Axis
+This is the section for selecting an Axis. Normally, the Axis for the R2 trigger is set to 5. Start by trying 5, and if the behavior seems incorrect, try a different Axis.
+### Mode
+This is the section for selecting the Mode. There are two options: Window Mode and Overlay Mode. In Window Mode, the Sensitivity meter is displayed as a regular window. In Overlay Mode, it appears on top of other windows, functioning seamlessly even when overlapping with the game.
+### Threshold
+This is the section for selecting the Threshold. This value adjusts the trigger meter to the optimal position. Please use the same value that is set in RPCS3. If you're using global settings, it can be found in the following directory: 
 ```
 EMULATOR/config/input_configs/global/Default.yml 
 ```
 To easily succeed Second Stage, **it is strongly recommended to set the Threshold value to 0 in RPCS3**.
-
-Finally, Press the Start and make sure the bar responds.
 
 # Practice Method for SS
 
