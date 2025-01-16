@@ -46,8 +46,8 @@ def draw_bar(screen, sens, THRESHOLD_1, THRESHOLD_2):
 
     pygame.draw.rect(screen, bar_color, (bar_x, bar_y, fill_width, BAR_HEIGHT))
 
-    pygame.draw.line(screen, (255, 255, 255), (boundary_140_x, bar_y), (boundary_140_x, bar_y + BAR_HEIGHT), 2)
-    pygame.draw.line(screen, (255, 255, 255), (boundary_220_x, bar_y), (boundary_220_x, bar_y + BAR_HEIGHT), 2)
+    pygame.draw.line(screen, (255, 255, 255), (boundary_140_x, bar_y), (boundary_140_x, bar_y + BAR_HEIGHT - 1), 2)
+    pygame.draw.line(screen, (255, 255, 255), (boundary_220_x, bar_y), (boundary_220_x, bar_y + BAR_HEIGHT - 1), 2)
 
 def draw_circle_and_arc(screen, start_time, elapsed_time):
     """円と弧を描画"""
