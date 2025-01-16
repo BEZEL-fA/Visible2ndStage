@@ -34,14 +34,18 @@ def draw_bar(screen, sens, THRESHOLD_1, THRESHOLD_2):
     """感度バーを描画"""
     bar_x = (WIDTH - BAR_WIDTH) // 2
     bar_y = HEIGHT // 2
+    boundary_140_x = bar_x + int((THRESHOLD_1 / 255) * BAR_WIDTH)
+    boundary_220_x = bar_x + int((THRESHOLD_2 / 255) * BAR_WIDTH)
+
+    # グレーの背景を描画
+    pygame.draw.rect(screen, (50, 50, 50), (bar_x, bar_y, BAR_WIDTH, BAR_HEIGHT))
+    pygame.draw.rect(screen, (169, 169, 169), (boundary_140_x, bar_y, boundary_220_x - boundary_140_x, BAR_HEIGHT))
+
     fill_width = int((sens / 255) * BAR_WIDTH)
     bar_color = (0, 255, 0) if sens < THRESHOLD_1 else (255, 255, 0) if sens < THRESHOLD_2 else (255, 0, 0)
 
     pygame.draw.rect(screen, (255, 255, 255), (bar_x, bar_y, BAR_WIDTH, BAR_HEIGHT), 2)
     pygame.draw.rect(screen, bar_color, (bar_x, bar_y, fill_width, BAR_HEIGHT))
-
-    boundary_140_x = bar_x + int((THRESHOLD_1 / 255) * BAR_WIDTH)
-    boundary_220_x = bar_x + int((THRESHOLD_2 / 255) * BAR_WIDTH)
 
     pygame.draw.line(screen, (255, 255, 255), (boundary_140_x, bar_y), (boundary_140_x, bar_y + BAR_HEIGHT), 2)
     pygame.draw.line(screen, (255, 255, 255), (boundary_220_x, bar_y), (boundary_220_x, bar_y + BAR_HEIGHT), 2)
@@ -92,6 +96,7 @@ def main():
 
     else:
         screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        pygame.display.set_caption("Visible2ndStage")
         pygame_icon = pygame.image.load('./images/icon1.png')
         pygame.display.set_icon(pygame_icon)
 
@@ -167,9 +172,9 @@ def main():
                 text = font.render(f"Sensitivity: {sens}", True, (255, 255, 255))
                 screen.blit(text, ((WIDTH - BAR_WIDTH) // 2, HEIGHT // 2 - 40))
 
-            setting_font = pygame.font.SysFont(None, 24)
-            setting_text = setting_font.render("s: setting", True, (255, 255, 255))
-            screen.blit(setting_text, (WIDTH - setting_text.get_width() - 10, HEIGHT - setting_text.get_height() - 10))
+                setting_font = pygame.font.SysFont(None, 24)
+                setting_text = setting_font.render("s: setting", True, (255, 255, 255))
+                screen.blit(setting_text, (WIDTH - setting_text.get_width() - 10, HEIGHT - setting_text.get_height() - 10))
 
             pygame.display.update()
             pygame.time.wait(5)
