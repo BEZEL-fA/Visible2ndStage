@@ -9,7 +9,7 @@ First, the Settings screen will appear. After configuring the necessary items on
 
 ## Settings
 ### Select Joystick
-This is the section for selecting a joystick. Please use the same device that you normally use for gaming. If it does not appear in the list, try reconnecting the device and then updating.
+This is the section for selecting a joystick. Please use the same device that you normally use for gaming. If it does not appear in the list, try reconnecting the device and then reloading.
 ### Select Axis
 This is the section for selecting an Axis. Normally, the Axis for the R2 trigger is set to 5. Start by trying 5, and if the behavior seems incorrect, try a different Axis.
 ### Mode
