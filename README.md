@@ -24,7 +24,7 @@ To easily succeed Second Stage, **it is strongly recommended to set the Threshol
 ### Sensitivity Meter
 Rectangle bar displays the trigger pressure. When the meter is yellow, the Second Stage charge count becomes active.
 ### Charge timer
-The circle at the bottom center indicates the duration of the charge count. When it turns red, the Second Stage can be successfully executed.
+The circle at the bottom center indicates the duration of the charge count. When edge of the circle turns red, the Second Stage can be successfully executed.
 # Practice Method for SS
 Hold the trigger when the bar turns yellow. The edge of the circle at the bottom will start to move. When the edge of the circle turns red, press the trigger all the way down.
 # Releases
