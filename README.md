@@ -19,9 +19,13 @@ Finally, Press the Start and make sure the bar responds.
 
 Hold the trigger when the bar turns yellow. The edge of the circle at the bottom will start to move. When the edge of the circle turns red, press the trigger all the way down.
 # Releases
-[Latest](https://github.com/BEZEL-fA/Visible2ndStage/releases/tag/0.9.7)
+[Latest - 0.9.7](https://github.com/BEZEL-fA/Visible2ndStage/releases/tag/0.9.7)
 
-[Stable](https://github.com/BEZEL-fA/Visible2ndStage/releases/tag/0.9.6)
+Version 0.9.7 is a version that allows the use of the overlay option.
+
+[Stable - 0.9.6](https://github.com/BEZEL-fA/Visible2ndStage/releases/tag/0.9.6)
+
+Version 0.9.6 is a stable version with minimal functionality available.
 # Known Issues
 
 It does not support QB reload.
