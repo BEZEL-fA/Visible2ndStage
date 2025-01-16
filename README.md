@@ -25,6 +25,8 @@ To easily succeed Second Stage, **it is strongly recommended to set the Threshol
 Rectangle bar displays the trigger pressure. When the meter is yellow, the Second Stage charge count becomes active.
 ### Charge timer
 The circle at the bottom center indicates the duration of the charge count. When edge of the circle turns red, the Second Stage can be successfully executed.
+### Notes
+By pressing the "s" button while the window is active, you can return to the settings screen. If the overlay option is enabled, you can activate the window by clicking the circle of the charge timer.
 # Practice Method for SS
 Hold the trigger when the bar turns yellow. The edge of the circle at the bottom will start to move. When the edge of the circle turns red, press the trigger all the way down.
 # Releases
@@ -33,7 +35,6 @@ Version 0.9.7 is a version that allows the use of the overlay option.\
 [Stable - 0.9.6](https://github.com/BEZEL-fA/Visible2ndStage/releases/tag/0.9.6)\
 Version 0.9.6 is a stable version with minimal functionality available.
 # Known Issues
-
 It does not support QB reload.\
 The required hold time may be slightly inaccurate. The current hold time is between 0.2 to 0.366 seconds.\
 The file size is very large. There are issues related to Python compilation.
