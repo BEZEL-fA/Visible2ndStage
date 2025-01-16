@@ -28,7 +28,9 @@ The circle at the bottom center indicates the duration of the charge count. When
 ### Notes
 By pressing the "s" button while the window is active, you can return to the settings screen. If the overlay option is enabled, you can activate the window by clicking the circle of the charge timer.
 # Practice Method for SS
-Hold the trigger when the bar turns yellow. The edge of the circle at the bottom will start to move. When the edge of the circle turns red, press the trigger all the way down.
+Hold the trigger when the bar turns yellow. The edge of the circle at the bottom will start to move. When the edge of the circle turns red, press the trigger all the way down.\
+This software is like training wheels. When attempting advanced gameplay, especially in PvP, you won’t have the luxury of watching the meter. Therefore, you need to practice in test mode or offline missions. Ultimately, you must master SS without relying on the meter.
+You need to familiarize yourself with the pressure on the R2 trigger. **It's crucial to sense the pressure with your fingertips.**
 # Releases
 [Latest - 0.9.7](https://github.com/BEZEL-fA/Visible2ndStage/releases/tag/0.9.7)\
 Version 0.9.7 is a version that allows the use of the overlay option.\
