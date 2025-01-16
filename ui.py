@@ -45,34 +45,42 @@ def select_joystick_and_axis():
             axis_dropdown["values"] = []
             selected_axis.set("")
 
-    def load_threshold():
-        """settings.ini から Threshold の値を読み込む"""
+    def load_settings():
+        """settings.ini から設定を読み込む"""
         config = configparser.ConfigParser()
         if os.path.exists("settings.ini"):
             config.read("settings.ini")
             try:
-                return int(config.get("Settings", "Threshold", fallback="0"))
+                threshold = int(config.get("Settings", "Threshold", fallback="0"))
+                mode = config.get("Settings", "Mode", fallback="Window")
+                return threshold, mode
             except ValueError:
-                return 0
-        return 0
+                return 0, "Window"
+        return 0, "Window"
 
-    def save_threshold(value):
-        """Threshold の値を settings.ini に保存"""
+    def save_settings(threshold, mode):
+        """設定を settings.ini に保存"""
         config = configparser.ConfigParser()
-        config["Settings"] = {"Threshold": value}
+        config["Settings"] = {"Threshold": str(threshold), "Mode": mode}
         with open("settings.ini", "w") as configfile:
             config.write(configfile)
 
     # Tkinter ウィンドウの設定
     root = tk.Tk()
     root.title("Select Joystick and Axis")
-    root.geometry("400x250")
+    root.geometry("400x300")
     iconfile = './images/icon1.ico'
     root.iconbitmap(default=iconfile)
 
     selected_joystick = tk.StringVar()
     selected_axis = tk.StringVar()
-    threshold_value = tk.IntVar(value=load_threshold())
+    threshold_value = tk.IntVar()
+    mode_value = tk.StringVar()
+
+    # 初期設定の読み込み
+    initial_threshold, initial_mode = load_settings()
+    threshold_value.set(initial_threshold)
+    mode_value.set(initial_mode)
 
     # フレーム設定
     frame = ttk.Frame(root, padding="10")
@@ -90,7 +98,7 @@ def select_joystick_and_axis():
     axis_dropdown.grid(column=1, row=1, sticky=(tk.W, tk.E))
 
     # Threshold 項目
-    ttk.Label(frame, text="Threshold:").grid(column=0, row=2, sticky=tk.W)
+    ttk.Label(frame, text="Threshold:").grid(column=0, row=3, sticky=tk.W)
     threshold_spinbox = ttk.Spinbox(
         frame,
         from_=0,
@@ -99,21 +107,26 @@ def select_joystick_and_axis():
         width=10,
         justify="left"
     )
-    threshold_spinbox.grid(column=1, row=2, sticky=(tk.W, tk.E))
+    threshold_spinbox.grid(column=1, row=3, sticky=(tk.W, tk.E))
+
+    # Mode 項目
+    ttk.Label(frame, text="Mode:").grid(column=0, row=2, sticky=tk.W)
+    mode_dropdown = ttk.Combobox(frame, textvariable=mode_value, state="readonly", values=["Window", "Overlay"], width=40)
+    mode_dropdown.grid(column=1, row=2, sticky=(tk.W, tk.E))
 
     # "Reload" ボタン
-    ttk.Button(frame, text="Reload", command=update_joystick_list).grid(column=0, row=3, columnspan=2, pady=5)
+    ttk.Button(frame, text="Reload", command=update_joystick_list).grid(column=0, row=4, columnspan=2, pady=5)
 
     # "Start" ボタン
     def on_select():
         if not selected_joystick.get() or not selected_axis.get():
             tk.messagebox.showerror("Error", "Please select a joystick and an axis.")
             return
-        save_threshold(threshold_value.get())  # Threshold 値を保存
+        save_settings(threshold_value.get(), mode_value.get())  # 設定を保存
         root.quit()
         root.destroy()
 
-    ttk.Button(frame, text="Start", command=on_select).grid(column=0, row=4, columnspan=2)
+    ttk.Button(frame, text="Start", command=on_select).grid(column=0, row=5, columnspan=2)
 
     # 初期値の設定
     update_joystick_list()
@@ -134,4 +147,5 @@ def select_joystick_and_axis():
         int(selected_joystick.get().split(":")[0]),
         int(selected_axis.get().split(" ")[1]),
         threshold_value.get(),
+        mode_value.get(),
     )

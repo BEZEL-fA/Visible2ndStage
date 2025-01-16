@@ -61,17 +61,37 @@ def draw_circle_and_arc(screen, start_time, elapsed_time):
                         0, math.radians(angle), ARC_WIDTH)
 
 def main():
-    joystick_index, axis_number, threshold = select_joystick_and_axis()
+    joystick_index, axis_number, threshold, mode = select_joystick_and_axis()
 
-    # threshold を基にした動的な THRESHOLD_1 と THRESHOLD_2 の設定
-    THRESHOLD_1 = 141 * (255 - threshold) / 255 + threshold  # 例として、THRESHOLD_1 を調整
-    THRESHOLD_2 = 220 * (255 - threshold) / 255 + threshold  # 同様に、THRESHOLD_2 を調整
+    THRESHOLD_1 = 141 * (255 - threshold) / 255 + threshold
+    THRESHOLD_2 = 220 * (255 - threshold) / 255 + threshold
 
     pygame.init()
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame_icon = pygame.image.load('./images/icon1.png')
-    pygame.display.set_icon(pygame_icon)
-    pygame.display.set_caption("Visible2ndStage")
+    chroma_key = None  # 初期化しておく
+
+    if mode == "Overlay":
+        screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.NOFRAME | pygame.SRCALPHA)
+
+        # Overlayモード用のクロマキー設定
+        import ctypes
+        import win32gui, win32con, win32api
+
+        hwnd = pygame.display.get_wm_info()["window"]
+
+        # ウィンドウをレイヤードに設定
+        win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE) | win32con.WS_EX_LAYERED)
+
+        # クロマキー色（ここでは (255, 0, 128)）を設定
+        chroma_key = (255, 0, 128)
+        win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*chroma_key), 0, win32con.LWA_COLORKEY)
+
+        # クロマキー色で画面を塗りつぶす
+        screen.fill(chroma_key)
+        ctypes.windll.user32.SetWindowPos(hwnd, -1, 0, 0, 0, 0, 3)  # 常に最前面に表示
+    else:
+        screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        pygame_icon = pygame.image.load('./images/icon1.png')
+        pygame.display.set_icon(pygame_icon)
 
     joystick = pygame.joystick.Joystick(joystick_index)
     joystick.init()
@@ -88,21 +108,29 @@ def main():
                     sys.exit()
                 if event.type == pygame.JOYAXISMOTION and event.axis == axis_number:
                     sens = int((event.value + 1.0) / 2.0 * 255)
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_s:  # "s" キーを押すと再設定
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_s:
                     pygame.quit()
-                    # 設定画面を表示するために select_joystick_and_axis を呼び出す
-                    joystick_index, axis_number, threshold = select_joystick_and_axis()
-                    # 再設定後、Pygame ウィンドウを再度初期化
+                    joystick_index, axis_number, threshold, mode = select_joystick_and_axis()
                     pygame.init()
-                    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-                    pygame.display.set_icon(pygame_icon)
-                    pygame.display.set_caption("Visible2ndStage")
-                    joystick = pygame.joystick.Joystick(joystick_index)
-                    joystick.init()
 
-                    # 再設定後の閾値の更新
+                    if mode == "Overlay":
+                        screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.NOFRAME | pygame.SRCALPHA)
+                        hwnd = pygame.display.get_wm_info()["window"]
+                        win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE) | win32con.WS_EX_LAYERED)
+                        chroma_key = (255, 0, 128)
+                        win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*chroma_key), 0, win32con.LWA_COLORKEY)
+                        screen.fill(chroma_key)
+                        ctypes.windll.user32.SetWindowPos(hwnd, -1, 0, 0, 0, 0, 3)
+                    else:
+                        screen = pygame.display.set_mode((WIDTH, HEIGHT))
+                        pygame_icon = pygame.image.load('./images/icon1.png')
+                        pygame.display.set_icon(pygame_icon)
+
                     THRESHOLD_1 = 141 * (255 - threshold) / 255 + threshold
                     THRESHOLD_2 = 220 * (255 - threshold) / 255 + threshold
+
+                    joystick = pygame.joystick.Joystick(joystick_index)
+                    joystick.init()
 
             current_time = time.time()
             elapsed_time = 0
@@ -127,16 +155,14 @@ def main():
                 flag = 0
 
             # 描画処理
-            screen.fill((0, 0, 0))
+            screen.fill(chroma_key if mode == "Overlay" else (0, 0, 0))
             draw_bar(screen, sens, THRESHOLD_1, THRESHOLD_2)
             draw_circle_and_arc(screen, start_time, elapsed_time)
 
-            # 感度テキストの描画
             font = pygame.font.SysFont(None, 36)
             text = font.render(f"Sensitivity: {sens}", True, (255, 255, 255))
             screen.blit(text, ((WIDTH - BAR_WIDTH) // 2, HEIGHT // 2 - 40))
 
-            # "s: setting" のテキストを右下に配置
             setting_font = pygame.font.SysFont(None, 24)
             setting_text = setting_font.render("s: setting", True, (255, 255, 255))
             screen.blit(setting_text, (WIDTH - setting_text.get_width() - 10, HEIGHT - setting_text.get_height() - 10))
